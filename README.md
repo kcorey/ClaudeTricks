@@ -54,6 +54,45 @@ See [`learnsync.md`](learnsync.md) for the full setup prompt (customize `YOUR_VA
 
 ---
 
+## @claude-code-agent — GitHub Autonomous Agent
+
+**Docs:** [Claude Code GitHub Actions](https://code.claude.com/docs/en/github-actions) | **App:** [github.com/apps/claude](https://github.com/apps/claude)
+
+One of the most underrated Claude Code features: install the Claude GitHub app on any repository and you get an autonomous coding agent you can summon with a simple `@claude` mention in any issue or pull request comment. No terminal needed — Claude reads the request, explores the codebase, writes the code, and opens a pull request, all from within GitHub.
+
+**What it can do:**
+
+- `@claude implement this` on an issue → Claude writes the code and opens a PR for review
+- `@claude fix the TypeError in the user dashboard` → Claude diagnoses and patches the bug
+- `@claude review this PR for security and correctness` → Claude posts inline review comments
+- `@claude add tests for the auth module` → Claude writes and commits a test suite
+- Runs on any GitHub event: issue comments, PR review comments, PR opens, scheduled crons
+
+**Benefits:**
+
+- **Zero context switching** — trigger full Claude Code sessions directly from GitHub without opening a terminal
+- **Parallel execution** — mention `@claude` on 20 issues and get 20 agents working simultaneously, each in an isolated environment
+- **Team-accessible** — any collaborator can invoke Claude, not just the developer with the local setup
+- **Respects your project standards** — reads `CLAUDE.md`, MCP servers, and skills automatically
+- **Composable** — combine with scheduled triggers, PR auto-review, issue triage, and daily maintenance workflows
+
+**Tips and tricks:**
+
+- Be specific in your `@claude` command — `@claude implement issue #42 using the existing UserService pattern` works better than `@claude fix this`
+- Pair it with a `CLAUDE.md` that sets coding standards; the agent reads it before every run
+- Use `claude_args: "--max-turns 10"` in your workflow YAML to cap runaway jobs and control costs
+- Set `trigger_phrase` to a custom string (e.g., `@claude-review`) if you want separate workflows for different task types
+- Add `--max-turns 5` for quick review tasks, higher for complex feature implementation
+- Works with AWS Bedrock and Google Vertex AI for enterprise environments — you're not locked into the direct API
+
+**Setup (2 minutes):**
+
+Run `/install-github-app` inside Claude Code terminal — it walks you through installing the GitHub app and setting the `ANTHROPIC_API_KEY` secret. Or install manually from [github.com/apps/claude](https://github.com/apps/claude) and copy the workflow from the [examples directory](https://github.com/anthropics/claude-code-action/tree/main/examples).
+
+**Requirements:** GitHub repository admin access, Anthropic API key (or Bedrock/Vertex credentials), Claude Code CLI (for `/install-github-app` quickstart).
+
+---
+
 ## Superpowers
 
 **Repo:** [obra/superpowers](https://github.com/obra/superpowers)
